@@ -1,0 +1,1 @@
+ServerRegistrationManager.exe uninstall StlThumbnailExtension.dll

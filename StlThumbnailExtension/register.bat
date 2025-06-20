@@ -1,0 +1,1 @@
+ServerRegistrationManager.exe install StlThumbnailExtension.dll -codebase
