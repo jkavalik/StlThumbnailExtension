@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using StlThumbnailExtension;
+using System.Diagnostics;
 
 namespace StlPreviewTestApp
 {
@@ -29,15 +30,19 @@ namespace StlPreviewTestApp
 
             try
             {
+                // --- Use new direct streaming Z-buffer+GDI renderer ---
+                Bitmap bmp;
+                var sw = Stopwatch.StartNew();
                 using (var fs = File.OpenRead(stlFile))
                 {
-                    var model = StlModel.Load(fs);
-                    using (var bmp = StlRenderer.RenderToBitmap(model, size, size))
-                    {
-                        bmp.Save(pngFile, System.Drawing.Imaging.ImageFormat.Png);
-                    }
+                    bmp = StlRenderer.RenderDirectlyFromStream(fs, size, size);
                 }
-                Console.WriteLine("Preview generated: " + pngFile);
+                sw.Stop();
+
+                bmp.Save(pngFile, System.Drawing.Imaging.ImageFormat.Png);
+                bmp.Dispose();
+
+                Console.WriteLine($"New direct streaming Z-buffer+GDI preview generated: {pngFile} in {sw.ElapsedMilliseconds} ms");
             }
             catch (Exception ex)
             {

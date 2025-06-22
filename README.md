@@ -16,7 +16,7 @@ Keep the DLL in the same folder unless you unregister it.
 
 - Thumbnail is a simple shaded projection (not full 3D, no colors)
 - Large or complex models may take a few moments to render
-- Only first ~100k triangles are rendered for performance
+- Only first 500k triangles are rendered for performance
 
 ## Uninstallation
 
